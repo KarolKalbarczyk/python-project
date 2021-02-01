@@ -1,0 +1,98 @@
+.border{
+  border-style: solid;
+  margin-bottom: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  width: 800px;
+  justify-content: space-between;
+}
+
+.smaller-border{
+  border-style: solid;
+  margin-bottom: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  width: 500px;
+  justify-content: space-between;
+}
+
+.smaller-pageSelectRow{
+    width: 500px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.pageSelectRow{
+    width: 800px;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.border-around{
+    border-right: solid;
+    width: 1200px;
+}
+
+.details{
+    justify-content: center;
+    align-content: center;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    width: 273px;
+}
+
+.rate-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.rate-area {
+	float: left;
+	border-style: none;
+	margin-top: 15px;
+}
+
+
+.rate-text{
+    margin-left: 68px;
+    font-size: 14;
+}
+
+.rate-area:not(:checked) > input {
+	position: absolute;
+	top: -9999px;
+	clip: rect(0, 0, 0, 0);
+}
+
+.rate-area:not(:checked) > label {
+	float: right;
+	width: 0.8em;
+	overflow: hidden;
+	white-space: nowrap;
+	cursor: pointer;
+	font-size: 180%;
+	color: lightgrey;
+}
+
+.rate-area:not(:checked) > label:before {
+	content: "★";
+}
+
+.rate-area > input:checked ~ label {
+	color: gold;
+}
+
+.rate-area:not(:checked) > label:hover,
+.rate-area:not(:checked) > label:hover ~ label {
+	color: gold;
+}
+
+.rate-area > input:checked + label:hover,
+.rate-area > input:checked + label:hover ~ label,
+.rate-area > input:checked ~ label:hover,
+.rate-area > input:checked ~ label:hover ~ label,
+.rate-area > label:hover ~ input:checked ~ label {
+	color: gold;
+}

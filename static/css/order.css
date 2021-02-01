@@ -1,0 +1,14 @@
+
+.row{
+  display: flex;
+  flex-wrap: wrap;
+  align-content: middle;
+  margin-right: 100px;
+}
+
+.row-height{
+     display: flex;
+     flex-wrap: wrap;
+     align-content: center;
+     height: inherit;
+}

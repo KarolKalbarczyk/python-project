@@ -1,0 +1,13 @@
+
+{% include 'base.html' %}
+
+<div> Synchronization id: {{ id }}</div>
+<div> Synchronization date: {{ date }}</div>
+<div> Modified {{ modified }} products</div>
+<div>
+    <ul>
+        {% for action in actions %}
+        <li> {{ action }}</li>
+        {% endfor %}
+    </ul>
+</div>

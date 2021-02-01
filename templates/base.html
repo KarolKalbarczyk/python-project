@@ -1,0 +1,40 @@
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+
+</head>
+
+<div class="upper">
+    <div style="float:right">
+        <div class="dropdown">
+            <button class="dropbtn">{% trans %} Languages {% endtrans %}</button>
+            <div class="dropdown-content">
+                {% for language in languages %}
+                <label onclick="setLang('{{language}}')">{{language}}</label>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <a style="float:right; margin-top: 15px; margin-left: 15px" href="{{ url }}logout">{% trans %} logout {% endtrans %}</a>
+    <a style="float:right; margin-top: 15px; margin-left: 15px" href="{{ url }}products">{% trans %} products {% endtrans %}</a>
+    <a style="float:right; margin-top: 15px; margin-left: 15px" href="{{ url }}orders">{% trans %} orders {% endtrans %}</a>
+    {% if isAdmin %}
+        <a style="float:right; margin-top: 15px; margin-left: 15px" href="{{ url }}synchronizations">{% trans %} synchronizations {% endtrans %}</a>
+    {% endif %}
+</div>
+<hr>
+
+<script>
+    function setLang(lang){
+        fetch("{{ url }}setLang?lang=" + lang, {
+          method: "PATCH"
+        })
+        .then(res => {
+          location.reload();
+        });
+    }
+
+
+
+</script>

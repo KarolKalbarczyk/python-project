@@ -1,0 +1,18 @@
+{% from "_formhelpers.html" import render_field %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/center.css') }}">
+{% include 'base.html' %}
+
+<div class="center">
+    <form method=post>
+        <fieldset class="box">
+            <legend>{% trans %} Sign up {% endtrans %}</legend>
+            <dl>
+                {{ render_field(form.email) }}
+                {{ render_field(form.password) }}
+                {{ render_field(form.confirm) }}
+            </dl>
+            <p><input type=submit value=Register>
+        </fieldset>
+    </form>
+</div>

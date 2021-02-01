@@ -1,0 +1,20 @@
+{% from "_formhelpers.html" import render_field %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/center.css') }}">
+{% include 'base.html' %}
+
+<div class="center">
+    <div style="display: flex; flex-direction: column">
+        <form method=post>
+            <fieldset class="box">
+                <legend>{% trans %} Log in {% endtrans %}</legend>
+                <dl>
+                    {{ render_field(form.email) }}
+                    {{ render_field(form.password) }}
+                </dl>
+                <p><input type=submit value=Login>
+            </fieldset>
+        </form>
+        <a href="{{ url }}signup"> {% trans %} Create an account {% endtrans %} </a>
+    </div>
+</div>

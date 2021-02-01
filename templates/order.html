@@ -1,0 +1,141 @@
+{% from "_formhelpers.html" import render_field %}
+
+
+<head xmlns="http://www.w3.org/1999/html">
+    <title>Flask app</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/order.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/border.css') }}">
+</head>
+
+{% include 'base.html' %}
+
+<div style="height: 100%">
+    <form style="height: 100%" method="post">
+        <div class="row">
+            {% if status == 'Ongoing' -%}
+                <div>
+                    {{ render_field(form.invoice) }}
+                </div>
+                <div>
+                    {{ render_field(form.message) }}
+                </div>
+            {% endif %}
+        </div>
+
+
+        <hr/>
+
+
+        <div class="row-height">
+            <ul class="border-around">
+                {% for product in dtos %}
+                <div class="border">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Windows_Settings_app_icon.png/600px-Windows_Settings_app_icon.png"
+                         width="80" height="80"/>
+                    <div>
+                        <div class="list-data">
+                            {% trans %} Code {% endtrans %}: {{ product.code }}
+                        </div>
+                        {% trans %} Name {% endtrans %}: {{ product.name }}
+                    </div>
+                    <div style="margin-left:15px">
+                        <div class="list-data">
+                            {% trans %} Price for 1 {% endtrans %}: {{ product.price }}
+                        </div>
+                        {% trans %} quantity {% endtrans %}:
+                        {% if status == 'Ongoing' %}
+                        <input type="button" onclick="changeQuantity('{{ product.code }}', false, {{product.id}})"
+                               value="-" style="height: fit-content"/>
+                        {% endif %}
+                        <span type="number" id="{{product.code}}"
+                              style="height: fit-content; width: 27;"> {{ product.quantity }}</span>
+                        {% if status == 'Ongoing' %}
+                        <input type="button" onclick="changeQuantity('{{ product.code }}', true, {{product.id}})"
+                               value="+" style="height: fit-content"/>
+                        {% endif %}
+
+                    </div>
+                    <div>
+
+                        {% if status == 'Ongoing' %}
+                        <button class="button" style="margin-left: 20px; width: 80px;"
+                                onclick="remove({{product.id}})"> {% trans %} remove {% endtrans %}
+                        </button>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </ul>
+            <div class="details">
+                <fieldset>
+                    <legend>{% trans %} Details {% endtrans %}</legend>
+                    {% if status == 'Ongoing' -%}
+                    {{ render_field(form.address) }}
+                    {{ render_field(form.clientName) }}
+                    {% endif %}
+                    {% trans %} Total price {% endtrans %}: <span id="totalPrice"> {{ totalPrice }}</span>
+                </fieldset>
+                {% if status == 'Ongoing' -%}
+
+                <input type=submit value=Finalize>
+                {% elif status == 'Finalized' and isAdmin -%}
+                <input type="button" onclick="decide({{ id }}, 1)" value="Accept"/>
+                <input type="button" onclick="decide({{ id }}, 0)" value="Decline"/>
+                {% else %}
+                <span> {% trans %} status {% endtrans %}: {{ status }} </span>
+                {% endif %}
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    function changeQuantity(id, isPlus, productId){
+        let text = document.getElementById(id);
+
+        let value =  (text.textContent - 0) + (isPlus ? 1 : -1);
+
+        if (value == 0){
+            return;
+        }
+
+        fetch("{{ url }}changeQuantity?productId=" + productId+ "&quantity=" + value, {
+          method: "PATCH"
+        }).then(res => {
+          if (!res.ok)
+            throw new Error('');
+          res.json().then(t => {
+            val = t['totalPrice'];
+            document.getElementById("totalPrice").textContent = val;
+          });
+
+          text.textContent = value;
+          console.log("Request complete! response:", res);
+        }).catch(res => alert('such quantity is not available'))
+    }
+
+    function remove(productId){
+        fetch("{{ url }}removeFromOrder?productId=" + productId, {
+          method: "DELETE"
+        }).then(res => {
+          console.log("Request complete! response:", res);
+        });
+    }
+
+    function decide(orderId, isAccepted){
+        fetch("{{ url }}decide?orderId=" + orderId + "&isAccepted=" + isAccepted, {
+          method: "PATCH"
+        }).then(res => {
+          console.log("Request complete! response:", res);
+          location.reload();
+        });
+    }
+
+
+
+
+
+
+
+
+
+</script>

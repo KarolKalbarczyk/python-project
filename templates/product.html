@@ -1,0 +1,31 @@
+{% include 'base.html' %}
+{% from "_formhelpers.html" import render_field %}
+
+<div style="border: solid;">
+    {% if isAdmin %}
+        <form method=post enctype = "multipart/form-data">
+            <div>{% trans %} Name {% endtrans %}: {{ form.name }}</div>
+            <div>{% trans %} Price {% endtrans %}: {{ form.price }}</div>
+            <input type="file" name="photo" onclick="choose()"/>
+            <input type="hidden" name="hidden" id="hidden" value="0"></input>
+            {{ form.submit }}
+        </form>
+    {% else %}
+        <div>{% trans %} Code {% endtrans %}: {{ product.code }}</div>
+        <div>{% trans %} Name {% endtrans %}: {{ product.name }}</div>
+        <div>{% trans %} Price {% endtrans %}: {{ product.price }}</div>
+        <div>{% trans %} Available quantity {% endtrans %}: {{ product.quantity}}</div>
+        <div>{% trans %} Rating {% endtrans %}: {{ product.vote }}</div>
+        <div>{% trans %} Description {% endtrans %}: {{ product.description }}</div>
+
+    {% endif %}
+</div>
+
+<script>
+
+    function choose(){
+        document.getElementById("hidden").value = 1;
+
+    }
+
+</script>

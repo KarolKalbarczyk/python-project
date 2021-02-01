@@ -1,0 +1,77 @@
+{% from "_formhelpers.html" import render_field %}
+
+
+<head>
+    <title>Flask app</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/border.css') }}">
+</head>
+
+
+{% include 'base.html' %}
+<form method=post>
+    <div style="display: flex">
+        {{ render_field(form.schedule) }}
+        <input style="height: 20px" type="submit" value="Submit"/>
+    </div>
+</form>
+<div style="display: flex">
+    <input type="button" onclick="stop()" value="{% trans %} Stop {% endtrans %}"/>
+    <input type="button" onclick="synchronize()" value="{% trans %} Synchronize {% endtrans %}"/>
+</div>
+<hr>
+
+<div>
+    <ul>
+        {% for synchronization in dtos %}
+        <div class="smaller-border">
+            <span style="margin-right: 7px">{% trans %} Status {% endtrans %}: {{ synchronization.status }}</span>
+            <span style="margin-right: 7px">{% trans %} Date {% endtrans %}: {{ synchronization.date }}</span>
+            <span style="margin-right: 7px">{% trans %} Modified {% endtrans %}: {{ synchronization.modified }}</span>
+            <button class="button" onclick="goToSynch( {{ synchronization.id }})">{% trans %} go to {% endtrans %}</button>
+        </div>
+        {% endfor %}
+    </ul>
+
+
+    <div class="smaller-pageSelectRow">
+        {% if hasPrevPage %}
+        <a href="synchronizations?page={{pageNumber - 1}}">
+            <button> <</button>
+        </a>
+        {% else %}
+        <div></div>
+        {% endif %}
+
+        {% trans %} page {% endtrans %}: {{ pageNumber }}
+        {% if hasNextPage %}
+        <a href="synchronizations?page={{pageNumber + 1}}">
+            <button> ></button>
+        </a>
+        {% else %}
+        <div></div>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+    function stop(){
+        fetch("{{ url }}stopJob", {
+          method: "POST"
+        }).then(res => {
+          console.log("Request complete! response:", res);
+        });
+    }
+
+    function goToSynch(synchId){
+        location.href = "{{ url }}synchronization?synchId=" + synchId;
+    }
+
+    function synchronize(){
+        fetch("{{ url }}synchronize", {
+          method: "POST"
+        }).then(res => {
+          console.log("Request complete! response:", res);
+        });
+    }
+
+</script>

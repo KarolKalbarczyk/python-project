@@ -1,0 +1,44 @@
+{% from "_formhelpers.html" import render_field %}
+
+
+<head>
+    <title>Flask app</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/border.css') }}">
+</head>
+
+
+{% include 'base.html' %}
+
+<div>
+    <ul>
+        {% for order in dtos %}
+        <div class="smaller-border" style="width: 600px">
+            <span style="margin-right: 7px; margin-top: 15px;">{% trans %} Owner {% endtrans %}: {{ order.owner }}</span>
+            <span style="margin-right: 7px; margin-top: 15px;">{% trans %} Creation date {% endtrans %}: {{ order.date }}</span>
+            <span style="margin-right: 7px; margin-top: 15px;">{% trans %} Status {% endtrans %}: {{ order.status }}</span>
+            <a href="order?orderId={{order.id}}"><button class="button" >{% trans %} go to {% endtrans %}</button></a>
+        </div>
+        {% endfor %}
+    </ul>
+
+    <div class="smaller-pageSelectRow" style="width: 600px">
+        {% if hasPrevPage %}
+        <a href="orders?page={{pageNumber - 1}}">
+            <button> <</button>
+        </a>
+        {% else %}
+        <div></div>
+        {% endif %}
+
+        {% trans %} page {% endtrans %}: {{ pageNumber }}
+        {% if hasNextPage %}
+        <a href="orders?page={{pageNumber + 1}}">
+            <button> ></button>
+        </a>
+        {% else %}
+        <div></div>
+        {% endif %}
+    </div>
+
+</div>
+

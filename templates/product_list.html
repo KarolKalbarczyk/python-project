@@ -1,0 +1,264 @@
+{% include 'base.html' %}
+
+
+<head>
+    <title>Flask app</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/border.css') }}">
+</head>
+
+
+<input type="text" id="searchbar"/>
+<div style="display: flex; margin-top: 10px;">
+    <div style="margin-right: 10px;">{% trans %} Price from {% endtrans %}</div>
+    <div><input style="width: 50px; margin-right: 10px;" id="minPrice" type="text"/></div>
+    <div style="margin-right: 10px;">{% trans %} to {% endtrans %}</div>
+    <div><input style="width: 50px; margin-right: 10px;" id="maxPrice" type="text"/></div>
+</div>
+<div style="display: flex; margin-top: 10px;">
+    <input type="checkbox" id="computer">
+    <label for="computer">computer</label>
+    <input type="checkbox" id="mouse">
+    <label for="mouse">mouse</label>
+    <input type="checkbox" id="screen">
+    <label for="screen">screen</label>
+    <input type="checkbox" id="keyboard">
+    <label for="keyboard">keyboard</label>
+</div>
+<button onclick="search()">Search</button>
+
+<hr>
+
+
+<ul>
+    {% for product in dtos %}
+    <div class="border">
+        {% if product.photo != "" %}
+        <img src="{{ url_for('static', filename= product.photo)}}" width="80" height="80"
+             onclick="showProduct({{product.id}})"/>
+        {% else %}
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Windows_Settings_app_icon.png/600px-Windows_Settings_app_icon.png"
+             width="80" height="80" onclick="showProduct({{product.id}})"/>
+        {% endif %}
+
+        <div>
+            <div class="list-data">
+                {% trans %} Code {% endtrans %}: {{ product.code }}
+            </div>
+            {% trans %} Name {% endtrans %}: {{ product.name }}
+        </div>
+        <div style="margin-left:15px">
+            <div class="list-data">
+                {% trans %} Price {% endtrans %}: {{ product.price }}
+            </div>
+            {% trans %} Available {% endtrans %}: {{ product.quantity }}
+        </div>
+        <div style="rate-container">
+            {% if product.userVote == 5 -%}
+
+            <ul class="rate-area">
+                <input type="radio" id="{{product.code}}55" name="{{product.code}}rating" value="5"
+                       onclick="vote({{product.id}}, 5)" checked/><label
+                    for="{{product.code}}55" title="Amazing">5 stars</label>
+                <input type="radio" id="{{product.code}}45" name="{{product.code}}rating" value="4"
+                       onclick="vote({{product.id}}, 4)"/><label
+                    for="{{product.code}}45" title="Good">4 stars</label>
+                <input type="radio" id="{{product.code}}35" name="{{product.code}}rating" value="3"
+                       onclick="vote({{product.id}}, 3)"/><label
+                    for="{{product.code}}35" title="Average">3 stars</label>
+                <input type="radio" id="{{product.code}}25" name="{{product.code}}rating" value="2"
+                       onclick="vote({{product.id}}, 2)"/><label
+                    for="{{product.code}}25" title="Not Good">2 stars</label>
+                <input type="radio" id="{{product.code}}15" name="{{product.code}}rating" value="1"
+                       onclick="vote({{product.id}}, 1)"/><label
+                    for="{{product.code}}15" title="Bad">1 star</label>
+            </ul>
+
+            {% elif product.userVote == 4 -%}
+
+            <ul class="rate-area">
+                <input type="radio" id="{{product.code}}54" name="{{product.code}}rating" value="5"
+                       onclick="vote({{product.id}}, 5)"/><label
+                    for="{{product.code}}54" title="Amazing">5 stars</label>
+                <input type="radio" id="{{product.code}}44" name="{{product.code}}rating" value="4"
+                       onclick="vote({{product.id}}, 4)" checked/><label
+                    for="{{product.code}}44" title="Good">4 stars</label>
+                <input type="radio" id="{{product.code}}34" name="{{product.code}}rating" value="3"
+                       onclick="vote({{product.id}}, 3)"/><label
+                    for="{{product.code}}34" title="Average">3 stars</label>
+                <input type="radio" id="{{product.code}}24" name="{{product.code}}rating" value="2"
+                       onclick="vote({{product.id}}, 2)"/><label
+                    for="{{product.code}}24" title="Not Good">2 stars</label>
+                <input type="radio" id="{{product.code}}14" name="{{product.code}}rating" value="1"
+                       onclick="vote({{product.id}}, 1)"/><label
+                    for="{{product.code}}14" title="Bad">1 star</label>
+            </ul>
+
+            {% elif product.userVote == 3 -%}
+
+            <ul class="rate-area">
+                <input type="radio" id="{{product.code}}53" name="{{product.code}}rating" value="5"
+                       onclick="vote({{product.id}}, 5)"/><label
+                    for="{{product.code}}53" title="Amazing">5 stars</label>
+                <input type="radio" id="{{product.code}}43" name="{{product.code}}rating" value="4"
+                       onclick="vote({{product.id}}, 4)"/><label
+                    for="{{product.code}}43" title="Good">4 stars</label>
+                <input type="radio" id="{{product.code}}33" name="{{product.code}}rating" value="3"
+                       onclick="vote({{product.id}}, 3)" checked/><label
+                    for="{{product.code}}33" title="Average">3 stars</label>
+                <input type="radio" id="{{product.code}}23" name="{{product.code}}rating" value="2"
+                       onclick="vote({{product.id}}, 2)"/><label
+                    for="{{product.code}}23" title="Not Good">2 stars</label>
+                <input type="radio" id="{{product.code}}13" name="{{product.code}}rating" value="1"
+                       onclick="vote({{product.id}}, 1)"/><label
+                    for="{{product.code}}13" title="Bad">1 star</label>
+            </ul>
+
+            {% elif product.userVote == 2 -%}
+
+            <ul class="rate-area">
+                <input type="radio" id="{{product.code}}52" name="{{product.code}}rating" value="5"
+                       onclick="vote({{product.id}}, 5)"/><label
+                    for="{{product.code}}52" title="Amazing">5 stars</label>
+                <input type="radio" id="{{product.code}}42" name="{{product.code}}rating" value="4"
+                       onclick="vote({{product.id}}, 4)"/><label
+                    for="{{product.code}}42" title="Good">4 stars</label>
+                <input type="radio" id="{{product.code}}32" name="{{product.code}}rating" value="3"
+                       onclick="vote({{product.id}}, 3)"/><label
+                    for="{{product.code}}32" title="Average">3 stars</label>
+                <input type="radio" id="{{product.code}}22" name="{{product.code}}rating" value="2"
+                       onclick="vote({{product.id}}, 2)" checked/><label
+                    for="{{product.code}}22" title="Not Good">2 stars</label>
+                <input type="radio" id="{{product.code}}12" name="{{product.code}}rating" value="1"
+                       onclick="vote({{product.id}}, 1)"/><label
+                    for="{{product.code}}12" title="Bad">1 star</label>
+            </ul>
+
+            {% elif product.userVote == 1 -%}
+
+            <ul class="rate-area">
+                <input type="radio" id="{{product.code}}51" name="{{product.code}}rating" value="5"
+                       onclick="vote({{product.id}}, 5)"/><label
+                    for="{{product.code}}51" title="Amazing">5 stars</label>
+                <input type="radio" id="{{product.code}}41" name="{{product.code}}rating" value="4"
+                       onclick="vote({{product.id}}, 4)"/><label
+                    for="{{product.code}}41" title="Good">4 stars</label>
+                <input type="radio" id="{{product.code}}31" name="{{product.code}}rating" value="3"
+                       onclick="vote({{product.id}}, 3)"/><label
+                    for="{{product.code}}31" title="Average">3 stars</label>
+                <input type="radio" id="{{product.code}}21" name="{{product.code}}rating" value="2"
+                       onclick="vote({{product.id}}, 2)"/><label
+                    for="{{product.code}}21" title="Not Good">2 stars</label>
+                <input type="radio" id="{{product.code}}11" name="{{product.code}}rating" value="1"
+                       onclick="vote({{product.id}}, 1)" checked/><label
+                    for="{{product.code}}11" title="Bad">1 star</label>
+            </ul>
+
+            {% else -%}
+
+            <ul class="rate-area">
+                <input type="radio" id="{{product.code}}5" name="{{product.code}}rating" value="5"
+                       onclick="vote({{product.id}}, 5)"/><label
+                    for="{{product.code}}5" title="Amazing">5 stars</label>
+                <input type="radio" id="{{product.code}}4" name="{{product.code}}rating" value="4"
+                       onclick="vote({{product.id}}, 4)"/><label
+                    for="{{product.code}}4" title="Good"> stars</label>
+                <input type="radio" id="{{product.code}}3" name="{{product.code}}rating" value="3"
+                       onclick="vote({{product.id}}, 3)"/><label
+                    for="{{product.code}}3" title="Average">3 stars</label>
+                <input type="radio" id="{{product.code}}2" name="{{product.code}}rating" value="2"
+                       onclick="vote({{product.id}}, 2)"/><label
+                    for="{{product.code}}2" title="Not Good">2 stars</label>
+                <input type="radio" id="{{product.code}}1" name="{{product.code}}rating" value="1"
+                       onclick="vote({{product.id}}, 1)"/><label
+                    for="{{product.code}}1" title="Bad">1 star</label>
+            </ul>
+            {% endif %}
+
+            <div class="rate-text"> {% trans %} rating {% endtrans %}: <span id="{{product.id}}rating">{{ product.vote }} </span>
+            </div>
+        </div>
+        <button onclick="add({{product.id}})" id="{{product.id}}button" class="button">{% trans %} Add to order {%
+            endtrans %}
+        </button>
+    </div>
+    {% endfor %}
+
+    <div class="pageSelectRow">
+        {% if hasPrevPage %}
+        <a href="products?page={{pageNumber - 1}}">
+            <button> <</button>
+        </a>
+        {% else %}
+        <div></div>
+        {% endif %}
+
+        {% trans %} page {% endtrans %}: {{ pageNumber }}
+        {% if hasNextPage %}
+        <a href="products?page={{pageNumber + 1}}">
+            <button> ></button>
+        </a>
+        {% else %}
+        <div></div>
+        {% endif %}
+    </div>
+
+</ul>
+
+<script>
+
+    function vote(id, value){
+        fetch("{{ url }}vote?id=" + id + "&vote=" + value, {
+          method: "PUT"
+        }).then(res => {
+          res.json().then(t => {
+            val = t['rating'];
+            document.getElementById(id + "rating").textContent = val;
+          });
+          console.log("Request complete! response:", res);
+        });
+    }
+
+    function add(id){
+        document.getElementById(id+"button").disabled = true;
+        fetch("{{ url }}addToOrder?productId=" + id, {
+          method: "POST"
+        }).then(res => {
+
+          console.log("Request complete! response:", res);
+        });
+    }
+
+    function search(){
+        value = document.getElementById("searchbar").value;
+        minPrice = document.getElementById("minPrice").value;
+        maxPrice = document.getElementById("maxPrice").value;
+        maxPrice = document.getElementById("maxPrice").value;
+        categories = ''
+
+        isChecked = document.getElementById("keyboard").checked;
+        if (isChecked)
+            categories += 'keyboard,'
+
+        isChecked = document.getElementById("mouse").checked;
+        if (isChecked)
+            categories += 'mouse,'
+
+        isChecked = document.getElementById("screen").checked;
+        if (isChecked)
+            categories += 'screen,'
+
+        isChecked = document.getElementById("computer").checked;
+        if (isChecked)
+            categories += 'computer,'
+
+
+        location.href = "{{ url }}products?filter=" + value + "&minPrice=" + minPrice + "&maxPrice=" + maxPrice + "&categories=" + categories;
+    }
+
+    function showProduct(productId){
+        location.href = "{{ url }}product?productId=" + productId;
+    }
+
+
+
+</script>
