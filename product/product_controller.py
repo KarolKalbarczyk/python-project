@@ -9,7 +9,9 @@ from wtforms import StringField, validators, FloatField, SubmitField, HiddenFiel
 from wtforms import Form, StringField, PasswordField, validators, ValidationError
 
 from product.product_dto import ProductDTO, ProductDetailDTO
-from database_definition import Product, User, Vote, db
+from database_definition import db
+from account.user import User
+from product.entities import Vote, Product
 from product.product_service import ProductService
 from base_render import render_template
 from auth import get_current_user

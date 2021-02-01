@@ -23,7 +23,9 @@ os.environ["INVOICE_LANG"] = "en"
 from flask_login import login_user, login_required, current_user, logout_user
 from wtforms import Form, StringField, PasswordField, validators, ValidationError
 
-from database_definition import db, User, Product
+from database_definition import db
+from account.user import User
+from product.entities import Product
 from flask_babel import _
 
 from base_render import render_template

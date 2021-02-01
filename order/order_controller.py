@@ -3,12 +3,6 @@ import os
 
 from flask import request, Response, send_from_directory
 from flask_login import current_user, login_required
-from injector import inject
-from sqlalchemy.orm import joinedload
-
-from auth import admin_only
-from Synchronization.order_request_service import OrderRequestService
-from database_definition import User, Product, Order, OrderStatus, db, OrderHasProducts
 from flask_babel import _
 from wtforms import Form, RadioField, IntegerField, FormField, FieldList, TextField, StringField, validators
 
@@ -82,7 +76,7 @@ def change_quantity(service: OrderService):
     if totalPrice is None:
         return Response('', status = 400)
 
-    return { 'totalPrice' : f'{totalPrice}' }
+    return { 'totalPrice' : f'{totalPrice}$' }
 
 @login_required
 def orders(service: OrderService):

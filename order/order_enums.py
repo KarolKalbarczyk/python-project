@@ -10,9 +10,3 @@ class InvoiceOptions(Enum):
 class MessageOptions(Enum):
     Email = 'email'
     Fax = 'fax'
-
-class PaymentsOptions(Enum):
-    Normal = 'normal'
-    SixRates = '6-rates'
-    TwelveRates = '12-rates'
-

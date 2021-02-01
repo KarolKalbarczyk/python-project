@@ -11,7 +11,7 @@ from Synchronization.synchronization_dto import SynchronizationDTO
 from Synchronization.synchronization_service import SynchronizationService
 from Synchronization.schedule_service import ScheduleService
 
-from database_definition import Synchronization, SynchAction, SynchLog
+from Synchronization.entities import SynchAction, Synchronization, SynchLog
 from base_render import render_template
 
 class ScheduleForm(Form):

@@ -40,7 +40,7 @@
                     </div>
                     <div style="margin-left:15px">
                         <div class="list-data">
-                            {% trans %} Price for 1 {% endtrans %}: {{ product.price }}
+                            {% trans %} Price for 1 {% endtrans %}: {{ product.price }} $
                         </div>
                         {% trans %} quantity {% endtrans %}:
                         {% if status == 'Ongoing' %}
@@ -73,7 +73,7 @@
                     {{ render_field(form.address) }}
                     {{ render_field(form.clientName) }}
                     {% endif %}
-                    {% trans %} Total price {% endtrans %}: <span id="totalPrice"> {{ totalPrice }}</span>
+                    {% trans %} Total price {% endtrans %}: <span id="totalPrice"> {{ totalPrice }} $</span>
                 </fieldset>
                 {% if status == 'Ongoing' -%}
 

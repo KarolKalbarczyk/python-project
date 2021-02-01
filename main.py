@@ -11,12 +11,11 @@ from product import product_controller
 from __init__ import app
 
 
-app.config['UPLOAD_FOLDER'] = r"C:\Users\Karol\PycharmProjects\sklep"
 app.config['MAX_CONTENT_PATH'] = 100000000000
 
 import os
 
-from database_definition import User
+from account.user import User
 from dependencies import configure
 
 SECRET_KEY = os.urandom(32)

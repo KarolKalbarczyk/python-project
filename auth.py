@@ -6,7 +6,7 @@ from flask import Response, url_for
 from flask_httpauth import HTTPBasicAuth
 from flask_login import current_user, login_required
 
-from database_definition import db, User
+from account.user import User
 
 auth = HTTPBasicAuth()
 

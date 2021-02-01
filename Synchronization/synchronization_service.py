@@ -7,8 +7,10 @@ from flask import json
 from sqlalchemy.orm import joinedload
 
 from Synchronization.product_dto import ProductDTO
-from database_definition import Product, db, Synchronization, SynchAction, SynchStatus, SynchLog, Vote, \
-    OrderHasProducts, ProductSnapshot, Order, OrderStatus, ProductCategory
+from database_definition import db
+from Synchronization.entities import SynchStatus, SynchAction, Synchronization, SynchLog
+from order.entities import ProductSnapshot, OrderStatus, Order, OrderHasProducts
+from product.entities import Vote, ProductCategory, Product
 from utils import flat_map
 
 

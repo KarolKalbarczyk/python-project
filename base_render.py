@@ -3,7 +3,7 @@ import os
 import flask
 from flask_login import current_user
 
-from database_definition import User
+from account.user import User
 
 
 def get_supported_languages():

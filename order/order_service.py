@@ -5,7 +5,9 @@ from sqlalchemy.orm import joinedload
 
 from Synchronization.order_request_service import OrderRequestService
 from __init__ import db
-from database_definition import User, OrderHasProducts, Product, Order, OrderStatus
+from account.user import User
+from order.entities import OrderStatus, Order, OrderHasProducts
+from product.entities import Product
 from order.options_fabric import OptionsFabric
 from order.order_list_dto import OrderListDTO
 

@@ -4,7 +4,8 @@ import re
 from flask_babel import _
 from wtforms import ValidationError
 
-from database_definition import User, db
+from database_definition import db
+from account.user import User
 
 
 class AccountService():

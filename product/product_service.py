@@ -3,10 +3,10 @@ import os
 from flask import url_for
 from sqlalchemy import and_, or_
 
-from database_definition import db, ProductCategory
+from database_definition import db
 
 from auth import get_current_user
-from database_definition import Product, Vote
+from product.entities import Vote, ProductCategory, Product
 from product.product_dto import ProductDTO
 from utils import find
 
@@ -42,7 +42,6 @@ class ProductService():
             else:
                 value = vote.vote
             path = os.getenv('photo_dir') + fr'/{p.code}.jpg'
-            a = url_for('static', filename = path[7:])
             dtos.append(ProductDTO(p, value, path[7:] if os.path.exists(path) else ""))
 
         return dtos, query.has_prev, query.has_next
